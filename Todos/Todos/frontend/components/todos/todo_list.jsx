@@ -4,19 +4,31 @@ import TodoForm from '../todo_list/todo_form'
 
 
 
-const TodoList = ({todos, addTodo}) => {
+class TodoList extends React.Component {
 
-  const TodoListItems = todos.map((el) => {
-    return <TodoListItem listItem={el} prop2={"prop2"}/>;
-  })
-  return (
-    <ul>
-      {TodoListItems}
-      <br />
-      <TodoForm action={addTodo} />
+  componentDidMount() {
+    this.props.fetchTodos();
+  }
 
-    </ul>
-  )
+
+  render(){
+    const TodoListItems = this.props.todos.map((el) => {
+
+      return <TodoListItem key={el.id} listItem={el} />;
+    });
+
+    return (
+      <ul>
+        {TodoListItems}
+        <br />
+        <TodoForm action={this.props.addTodo} />
+
+      </ul>
+    );
+  }
+
+
+
 }
 
 
